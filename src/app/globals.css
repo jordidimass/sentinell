@@ -85,7 +85,7 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-mono;
   }
 }
 @layer base {
@@ -93,6 +93,11 @@
     background: var(--signal);
     color: var(--background);
   }
+}
+
+.ascii-mask {
+  /* Quiet behind the centered copy, full strength toward the edges. */
+  mask-image: radial-gradient(ellipse 38% 42% at 50% 50%, rgb(0 0 0 / 0.18) 0%, rgb(0 0 0 / 0.18) 55%, black 100%);
 }
 
 .grid-bg {
@@ -113,51 +118,52 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Type scale: Sentient for reading, JetBrains Mono for interface and data. */
+/* Type scale: Sentient Light only for headlines, JetBrains Mono for everything else. */
 @layer components {
   .type-display {
     font-family: var(--font-sans);
-    font-weight: 450;
-    font-size: clamp(2.5rem, 1.8rem + 2.8vw, 4.25rem);
-    line-height: 1;
-    letter-spacing: -0.035em;
+    font-weight: 300;
+    font-size: clamp(2.75rem, 1.9rem + 3.2vw, 4.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
     text-wrap: balance;
   }
   .type-title {
     font-family: var(--font-sans);
-    font-weight: 450;
-    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
-    line-height: 1.04;
-    letter-spacing: -0.03em;
+    font-weight: 300;
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.75rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
     text-wrap: balance;
   }
   .type-heading {
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-weight: 500;
-    font-size: 1.25rem;
-    line-height: 1.25;
-    letter-spacing: -0.012em;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
   }
   .type-body {
-    font-family: var(--font-sans);
-    font-size: 1.0625rem;
-    line-height: 1.6;
-    letter-spacing: -0.003em;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    letter-spacing: -0.015em;
     color: var(--muted-foreground);
     text-wrap: pretty;
   }
   .type-small {
-    font-family: var(--font-sans);
-    font-size: 0.9375rem;
-    line-height: 1.55;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    letter-spacing: -0.015em;
     color: var(--muted-foreground);
     text-wrap: pretty;
   }
   .type-label {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     line-height: 1;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
   .type-ui {

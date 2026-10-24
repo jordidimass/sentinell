@@ -1,21 +1,12 @@
-import {
-  siClaude,
-  siCursor,
-  siGithubcopilot,
-  siGooglegemini,
-  siWindsurf,
-  siZedindustries,
-  type SimpleIcon,
-} from "simple-icons"
+import { siClaude, siCursor } from "simple-icons"
 
 import { site } from "@/lib/site"
 
 export type Agent = {
   id: string
   name: string
-  icon: SimpleIcon
-  // Short location shown on the card.
-  hint: string
+  // simple-icons path; null renders a generic bot glyph.
+  iconPath: string | null
   // Agent-specific step that registers the Sentinell MCP server.
   connect: string
 }
@@ -29,45 +20,21 @@ const mcpJson = `{
 export const agents: Agent[] = [
   {
     id: "claude",
-    name: "Claude Code",
-    hint: "claude mcp add",
-    icon: siClaude,
+    name: "Claude",
+    iconPath: siClaude.path,
     connect: "Run: claude mcp add sentinell -- sentinell mcp",
   },
   {
     id: "cursor",
     name: "Cursor",
-    hint: "~/.cursor/mcp.json",
-    icon: siCursor,
+    iconPath: siCursor.path,
     connect: `Add this to ~/.cursor/mcp.json:\n${mcpJson}`,
   },
   {
-    id: "windsurf",
-    name: "Windsurf",
-    hint: "mcp_config.json",
-    icon: siWindsurf,
-    connect: `Add this to ~/.codeium/windsurf/mcp_config.json:\n${mcpJson}`,
-  },
-  {
-    id: "copilot",
-    name: "GitHub Copilot",
-    hint: ".vscode/mcp.json",
-    icon: siGithubcopilot,
-    connect: `Add this to .vscode/mcp.json (key "servers"):\n${mcpJson.replace("mcpServers", "servers")}`,
-  },
-  {
-    id: "gemini",
-    name: "Gemini CLI",
-    hint: "~/.gemini/settings.json",
-    icon: siGooglegemini,
-    connect: `Add this to ~/.gemini/settings.json:\n${mcpJson}`,
-  },
-  {
-    id: "zed",
-    name: "Zed",
-    hint: "context_servers",
-    icon: siZedindustries,
-    connect: `Add this to Zed settings under "context_servers":\n{ "sentinell": { "command": { "path": "sentinell", "args": ["mcp"] } } }`,
+    id: "grok",
+    name: "Grok Bot",
+    iconPath: null,
+    connect: `Register an MCP server named "sentinell" that runs \`sentinell mcp\` over stdio:\n${mcpJson}`,
   },
 ]
 

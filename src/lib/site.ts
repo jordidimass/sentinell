@@ -7,17 +7,3 @@ export const site = {
   installCmd: "curl -fsSL https://sentinell.xyz/install.sh | sh",
   version: "v0.1.0",
 }
-
-export const binaries = [
-  { os: "Linux", arch: "x86_64", file: "sentinell-linux-amd64.tar.gz", size: "6.8 MB" },
-  { os: "Linux", arch: "arm64", file: "sentinell-linux-arm64.tar.gz", size: "6.4 MB" },
-  { os: "macOS", arch: "arm64", file: "sentinell-darwin-arm64.tar.gz", size: "7.1 MB", note: "replay + dashboard only" },
-] as const
-
-export const routes = [
-  { href: "/", label: "Overview" },
-  { href: "/how-it-works", label: "How it works" },
-  { href: "/agents", label: "Agents" },
-  { href: "/principles", label: "Principles" },
-  { href: "/download", label: "Download" },
-] as const

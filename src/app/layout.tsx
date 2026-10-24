@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 
+import { AsciiField } from "@/components/ascii-field";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { Toaster } from "@/components/ui/sonner";
 import { site } from "@/lib/site";
@@ -49,18 +50,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`dark ${sentient.variable} ${jetbrains.variable} h-full antialiased`}>
       <body className="relative isolate flex min-h-dvh flex-col overflow-x-clip">
-        <div aria-hidden className="grid-bg pointer-events-none absolute inset-x-0 top-0 -z-10 h-[720px]" />
+        <AsciiField />
         <div
           aria-hidden
           className="pointer-events-none absolute -top-48 left-1/2 -z-10 h-[420px] w-[min(900px,120vw)] -translate-x-1/2 rounded-full bg-signal/15 blur-[120px]"
         />
-        {/* Vercel-style column guides */}
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-y-0 left-1/2 -z-10 hidden w-full max-w-6xl -translate-x-1/2 border-x border-dashed border-border md:block"
-        />
         <SiteHeader />
-        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-4 py-10 sm:px-8 md:py-12">
+        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-4 py-12 sm:px-8">
           {children}
         </main>
         <SiteFooter />

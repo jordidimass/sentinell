@@ -56,7 +56,7 @@ export async function renderOg({ eyebrow, title, accent }: { eyebrow: string; ti
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <LogoMark size={48} />
-            <span style={{ fontFamily: "Sentient", fontWeight: 500, fontSize: 36, letterSpacing: -0.8 }}>Sentinell</span>
+            <span style={{ fontSize: 32, letterSpacing: -1 }}>sentinell</span>
           </div>
           <span style={{ fontSize: 20, color: colors.muted }}>sentinell.xyz</span>
         </div>
@@ -66,7 +66,7 @@ export async function renderOg({ eyebrow, title, accent }: { eyebrow: string; ti
             <div style={{ width: 10, height: 10, borderRadius: 10, background: colors.signal }} />
             {eyebrow.toUpperCase()}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", marginTop: 24, fontFamily: "Sentient", fontWeight: 500, fontSize: 88, lineHeight: 1.02, letterSpacing: -3 }}>
+          <div style={{ display: "flex", flexDirection: "column", marginTop: 24, fontFamily: "Sentient", fontWeight: 400, fontSize: 92, lineHeight: 1, letterSpacing: -3.5, maxWidth: 1000 }}>
             <span>{title}</span>
             {accent && <span style={{ fontWeight: 400, fontStyle: "italic", color: colors.signal }}>{accent}</span>}
           </div>

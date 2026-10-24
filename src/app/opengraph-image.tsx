@@ -5,5 +5,5 @@ export const size = ogSize
 export const contentType = ogContentType
 
 export default function Image() {
-  return renderOg({ eyebrow: "Open source · Self-hosted", title: "Every SSH attack,", accent: "explained." })
+  return renderOg({ eyebrow: "Self-hosted · Open source", title: "Every SSH attack on your server, explained." })
 }

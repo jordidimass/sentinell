@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react"
 
-// Density ramp, darkest to brightest.
 const RAMP = " .·:-=+*λ#@"
 const CELL_W = 11
 const CELL_H = 18
@@ -28,7 +27,6 @@ export function AsciiField() {
     let last = 0
     let time = 0
 
-    // Cursor target and an eased follower, so the glow trails the pointer instead of snapping.
     const target = { x: -9999, y: -9999 }
     const pos = { x: -9999, y: -9999 }
     let presence = 0
@@ -58,7 +56,6 @@ export function AsciiField() {
         for (let i = 0; i < cols; i++) {
           const x = i * CELL_W
 
-          // Slow interference pattern as the base texture.
           const n =
             Math.sin(i * 0.11 + time * 0.35) * Math.cos(j * 0.17 - time * 0.25) +
             Math.sin((i + j) * 0.045 + time * 0.2) * 0.6
@@ -111,7 +108,6 @@ export function AsciiField() {
       active = false
     }
 
-    // Touch has no hover: let the glow fade once the finger lifts.
     function onUp(e: PointerEvent) {
       if (e.pointerType !== "mouse") active = false
     }

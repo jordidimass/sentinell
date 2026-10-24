@@ -40,7 +40,6 @@ function Icon({ path, size = 18 }: { path: string; size?: number }) {
   )
 }
 
-// Static frame of the site's ASCII field, with the cursor glow parked left of the headline.
 const RAMP = " .·:-=+*λ#@"
 const CELL_W = 11
 const CELL_H = 18
@@ -96,7 +95,6 @@ export async function renderOg({ eyebrow, title }: { eyebrow: string; title: str
           fontFamily: "JetBrains Mono",
         }}
       >
-        {/* ASCII field */}
         <div style={{ position: "absolute", top: 0, left: 0, width: ogSize.width, height: ogSize.height, display: "flex", flexDirection: "column", fontSize: 11 }}>
           {asciiRows().map((segs, j) => (
             <div key={j} style={{ display: "flex", height: CELL_H, whiteSpace: "pre" }}>
@@ -108,7 +106,6 @@ export async function renderOg({ eyebrow, title }: { eyebrow: string; title: str
             </div>
           ))}
         </div>
-        {/* Quiet the field behind the copy, warm glow at the top */}
         <div
           style={{
             position: "absolute",

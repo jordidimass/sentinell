@@ -5,5 +5,5 @@ export const size = ogSize
 export const contentType = ogContentType
 
 export default function Image() {
-  return renderOg({ eyebrow: "Download", title: "Own your", accent: "SOC." })
+  return renderOg({ eyebrow: "Download", title: "One binary.", accent: "Your server." })
 }

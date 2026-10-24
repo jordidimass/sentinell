@@ -9,8 +9,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-  --font-heading: var(--font-display);
-  --font-display: var(--font-display);
+  --font-heading: var(--font-sans);
+  --font-display: var(--font-sans);
   --color-signal: var(--signal);
   --color-phosphor: var(--phosphor);
   --color-amber: var(--amber);
@@ -97,10 +97,10 @@
 
 .grid-bg {
   background-image:
-    linear-gradient(to right, oklch(1 0 0 / 4%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(1 0 0 / 4%) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 30%, transparent 75%);
+    linear-gradient(to right, oklch(1 0 0 / 3.5%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 3.5%) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 70%);
 }
 
 body::after {
@@ -109,19 +109,89 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: 50;
-  opacity: 0.05;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* Type scale: Sentient for reading, JetBrains Mono for interface and data. */
+@layer components {
+  .type-display {
+    font-family: var(--font-sans);
+    font-weight: 450;
+    font-size: clamp(2.5rem, 1.8rem + 2.8vw, 4.25rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .type-title {
+    font-family: var(--font-sans);
+    font-weight: 450;
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .type-heading {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    letter-spacing: -0.012em;
+  }
+  .type-body {
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    letter-spacing: -0.003em;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+  .type-small {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--muted-foreground);
+    text-wrap: pretty;
+  }
+  .type-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .type-ui {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: -0.01em;
+  }
+}
+
+.pressable {
+  transition: transform 160ms var(--ease-out), background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.pressable:active {
+  transform: scale(0.97);
+}
+
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+  from { opacity: 0; transform: translateY(8px); filter: blur(4px); }
   to { opacity: 1; transform: none; filter: none; }
 }
 
 .reveal {
-  animation: reveal 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: reveal 600ms var(--ease-out) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal { animation: none; }
+  .reveal { animation: reveal-fade 200ms ease both; }
+  .pressable:active { transform: none; }
+}
+
+@keyframes reveal-fade {
+  from { opacity: 0; }
 }

@@ -22,7 +22,7 @@ export function CopyCommand({ command }: { command: string }) {
     <button
       type="button"
       onClick={copy}
-      className="group flex w-full items-center gap-3 overflow-hidden rounded-md border border-border bg-card px-4 py-3 text-left font-mono text-xs transition-colors hover:border-signal/50"
+      className="pressable group flex w-full items-center gap-3 overflow-hidden rounded-md border border-border bg-card px-4 py-3 text-left font-mono text-[13px] hover:border-foreground/20"
     >
       <span className="text-signal">$</span>
       <span className="truncate text-foreground/90">{command}</span>

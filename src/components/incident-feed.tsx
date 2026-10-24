@@ -39,7 +39,7 @@ export function IncidentFeed() {
   const shownFindings = Math.max(0, step - lines.length - 1)
 
   return (
-    <div className="relative overflow-hidden rounded-lg border border-border bg-card/80 font-mono text-[11px] shadow-[0_40px_120px_-40px_oklch(0.62_0.22_29/0.45)] backdrop-blur">
+    <div className="relative overflow-hidden rounded-lg border border-border bg-card/80 font-mono text-[11px] shadow-[0_30px_100px_-40px_oklch(0.62_0.22_29/0.4)] backdrop-blur">
       <div className="flex items-center justify-between border-b border-border px-4 py-2.5 text-muted-foreground">
         <span className="flex items-center gap-2">
           <span className="size-1.5 animate-pulse rounded-full bg-phosphor" />
@@ -54,7 +54,7 @@ export function IncidentFeed() {
             <span className="text-muted-foreground/60">{l.t}</span>
             <span
               className={cn(
-                "w-[118px] shrink-0 truncate",
+                "hidden w-[118px] shrink-0 truncate sm:block",
                 l.type === "ssh_success" ? "text-signal" : "text-muted-foreground"
               )}
             >
@@ -74,7 +74,7 @@ export function IncidentFeed() {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="rounded-sm bg-signal px-1.5 py-0.5 font-semibold text-background">INC-0042</span>
           <span className="text-foreground">success_after_failures · 203.0.113.47</span>
-          <span className="ml-auto text-muted-foreground">telegram ✓ sent once</span>
+          <span className="ml-auto text-muted-foreground">telegram · sent once</span>
         </div>
         <ul className="mt-3 space-y-1.5">
           {findings.slice(0, shownFindings).map((f) => (

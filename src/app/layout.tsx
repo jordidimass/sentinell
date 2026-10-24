@@ -1,41 +1,38 @@
-import type { Metadata } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans, Instrument_Serif } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { Toaster } from "@/components/ui/sonner";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const sans = IBM_Plex_Sans({
+const sentient = localFont({
   variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  src: [
+    { path: "./fonts/Sentient-Variable.woff2", style: "normal", weight: "200 700" },
+    { path: "./fonts/Sentient-VariableItalic.woff2", style: "italic", weight: "200 700" },
+  ],
 });
 
-const mono = IBM_Plex_Mono({
+const jetbrains = localFont({
   variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
-const display = Instrument_Serif({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  src: [
+    { path: "./fonts/JetBrainsMono-Regular.woff2", style: "normal", weight: "400" },
+    { path: "./fonts/JetBrainsMono-Medium.woff2", style: "normal", weight: "500" },
+  ],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Sentinell — the self-hosted L1 SOC analyst",
+    default: "Sentinell · SSH attack triage for your Linux server",
     template: "%s · Sentinell",
   },
   description:
-    "Sentinell watches SSH auth on your Linux server, correlates attacks into incidents, alerts on Telegram, and writes evidence-cited AI investigations. Self-hosted, single binary.",
+    "Sentinell reads sshd logs, groups attacks into incidents, alerts you on Telegram and writes a report that links every claim to a log line. One binary, self-hosted.",
   openGraph: {
-    title: "Sentinell — your L1 analyst never sleeps",
-    description: "Self-hosted SOC triage for Linux servers. Connect it to Claude, Cursor and more via MCP.",
+    title: "Sentinell · SSH attack triage for your Linux server",
+    description: "Self-hosted incident triage for SSH. Set it up from Claude Code, Cursor and other agents over MCP.",
     url: site.url,
     siteName: "Sentinell",
     type: "website",
@@ -43,20 +40,27 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#141210",
+  colorScheme: "dark",
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`dark ${sans.variable} ${mono.variable} ${display.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`dark ${sentient.variable} ${jetbrains.variable} h-full antialiased`}>
       <body className="relative isolate flex min-h-dvh flex-col overflow-x-clip">
-        <div aria-hidden className="grid-bg pointer-events-none absolute inset-x-0 top-0 -z-10 h-[900px]" />
+        <div aria-hidden className="grid-bg pointer-events-none absolute inset-x-0 top-0 -z-10 h-[720px]" />
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-40 right-[-10%] -z-10 size-[640px] rounded-full bg-signal/20 blur-[140px]"
+          className="pointer-events-none absolute -top-48 left-1/2 -z-10 h-[420px] w-[min(900px,120vw)] -translate-x-1/2 rounded-full bg-signal/15 blur-[120px]"
+        />
+        {/* Vercel-style column guides */}
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-y-0 left-1/2 -z-10 hidden w-full max-w-6xl -translate-x-1/2 border-x border-dashed border-border md:block"
         />
         <SiteHeader />
-        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-4 py-10 sm:px-6">
+        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-4 py-10 sm:px-8 md:py-12">
           {children}
         </main>
         <SiteFooter />

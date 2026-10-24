@@ -1,50 +1,120 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ArrowRightIcon } from "lucide-react"
 
 import { Logo } from "@/components/logo"
-import { buttonVariants } from "@/components/ui/button"
 import { routes, site } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
+const navRoutes = routes.slice(1, -1)
+
 export function SiteHeader() {
   const pathname = usePathname()
+  const [open, setOpen] = useState(false)
 
   return (
-    <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-5 sm:px-6">
-      <Link href="/" className="flex items-center gap-2.5">
-        <Logo />
-        <span className="font-mono text-sm font-semibold tracking-[0.2em] uppercase">Sentinell</span>
-      </Link>
-      <nav className="hidden items-center gap-7 text-xs md:flex">
-        {routes.slice(1, -1).map((r) => (
-          <Link
-            key={r.href}
-            href={r.href}
-            className={cn(
-              "transition-colors hover:text-foreground",
-              pathname === r.href ? "text-foreground" : "text-muted-foreground"
-            )}
+    <header className="sticky top-0 z-40 border-b border-border bg-background/70 backdrop-blur-xl backdrop-saturate-150">
+      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-8">
+        <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2" aria-label="Sentinell home">
+          <Logo />
+          <span className="text-[17px] font-medium tracking-[-0.02em]">Sentinell</span>
+        </Link>
+
+        <nav className="type-ui hidden items-center gap-1 md:flex">
+          {navRoutes.map((r) => (
+            <Link
+              key={r.href}
+              href={r.href}
+              className={cn(
+                "rounded-md px-3 py-1.5 transition-colors duration-150 hover:bg-muted hover:text-foreground",
+                pathname === r.href ? "text-foreground" : "text-muted-foreground"
+              )}
+            >
+              {r.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <a
+            href={site.repoUrl}
+            className="pressable type-ui hidden h-8 items-center rounded-md border border-border px-3 text-muted-foreground hover:border-foreground/20 hover:text-foreground sm:flex"
           >
-            {r.label}
-          </Link>
-        ))}
-        <a href={site.repoUrl} className="text-muted-foreground transition-colors hover:text-foreground">
-          GitHub
-        </a>
-      </nav>
-      <Link
-        href="/download"
+            GitHub
+          </a>
+          <a
+            href={site.releasesUrl}
+            className="pressable type-ui hidden h-8 items-center rounded-md bg-foreground px-3 font-medium text-background hover:bg-foreground/85 sm:flex"
+          >
+            Download
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="pressable relative grid size-9 place-items-center rounded-md border border-border md:hidden"
+          >
+            <span
+              className={cn(
+                "absolute h-px w-4 bg-foreground transition-transform duration-200 ease-[var(--ease-out)]",
+                open ? "rotate-45" : "-translate-y-[3px]"
+              )}
+            />
+            <span
+              className={cn(
+                "absolute h-px w-4 bg-foreground transition-transform duration-200 ease-[var(--ease-out)]",
+                open ? "-rotate-45" : "translate-y-[3px]"
+              )}
+            />
+          </button>
+        </div>
+      </div>
+
+      <nav
+        id="mobile-nav"
+        inert={!open}
         className={cn(
-          buttonVariants({ variant: "outline", size: "sm" }),
-          "font-mono text-xs",
-          pathname === "/download" && "border-signal/60 text-signal"
+          "absolute inset-x-0 top-full h-[calc(100dvh-3.5rem)] border-t border-border bg-background px-4 pt-2 transition-[opacity,transform] duration-200 ease-[var(--ease-out)] md:hidden",
+          open ? "opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
         )}
       >
-        {site.version}
-      </Link>
+        <ul className="divide-y divide-border">
+          {routes.map((r) => (
+            <li key={r.href}>
+              <Link
+                href={r.href}
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "flex items-center justify-between py-4 text-xl tracking-[-0.02em]",
+                  pathname === r.href ? "text-foreground" : "text-muted-foreground"
+                )}
+              >
+                {r.label}
+                {pathname === r.href && <span className="size-1.5 rounded-full bg-signal" />}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6 grid grid-cols-2 gap-2">
+          <a
+            href={site.repoUrl}
+            className="pressable type-ui flex h-11 items-center justify-center rounded-md border border-border"
+          >
+            GitHub
+          </a>
+          <a
+            href={site.releasesUrl}
+            className="pressable type-ui flex h-11 items-center justify-center rounded-md bg-foreground font-medium text-background"
+          >
+            Download
+          </a>
+        </div>
+      </nav>
     </header>
   )
 }
@@ -55,36 +125,37 @@ export function SiteFooter() {
   const next = routes[(index + 1) % routes.length]
 
   return (
-    <footer className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-5 font-mono text-[11px] text-muted-foreground sm:px-6">
-      <div className="flex items-center gap-3">
-        <span className="text-foreground">{String(index + 1).padStart(2, "0")}</span>
-        <div className="flex gap-1">
-          {routes.map((r, i) => (
-            <Link
-              key={r.href}
-              href={r.href}
-              aria-label={r.label}
-              className={cn(
-                "h-0.5 w-5 transition-colors",
-                i === index ? "bg-signal" : "bg-border hover:bg-muted-foreground"
-              )}
-            />
-          ))}
+    <footer className="border-t border-border">
+      <div className="type-ui mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4 text-muted-foreground sm:px-8">
+        <div className="flex items-center gap-3">
+          <span className="text-foreground tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+          <div className="flex">
+            {routes.map((r, i) => (
+              <Link key={r.href} href={r.href} aria-label={r.label} className="group px-0.5 py-3">
+                <span
+                  className={cn(
+                    "block h-0.5 w-5 transition-colors duration-150",
+                    i === index ? "bg-signal" : "bg-border group-hover:bg-muted-foreground"
+                  )}
+                />
+              </Link>
+            ))}
+          </div>
+          <span className="tabular-nums">{String(routes.length).padStart(2, "0")}</span>
         </div>
-        <span>{String(routes.length).padStart(2, "0")}</span>
+        <Link href={next.href} className="group flex items-center gap-2 transition-colors hover:text-foreground">
+          {next.label}
+          <ArrowRightIcon className="size-3.5 transition-transform duration-200 ease-[var(--ease-out)] group-hover:translate-x-0.5" />
+        </Link>
       </div>
-      <Link href={next.href} className="group flex items-center gap-2 transition-colors hover:text-foreground">
-        <span className="hidden sm:inline">Next —</span> {next.label}
-        <ArrowRightIcon className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:text-signal" />
-      </Link>
     </footer>
   )
 }
 
 export function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-5 font-mono text-[11px] tracking-[0.25em] text-signal uppercase">
-      {"// "}
+    <p className="type-label mb-5 flex items-center gap-2 text-muted-foreground">
+      <span className="size-1.5 rounded-full bg-signal" />
       {children}
     </p>
   )

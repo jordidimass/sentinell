@@ -5,5 +5,5 @@ export const size = ogSize
 export const contentType = ogContentType
 
 export default function Image() {
-  return renderOg({ eyebrow: "Agent-native", title: "Paste one prompt.", accent: "Your agent does the rest." })
+  return renderOg({ eyebrow: "Agents", title: "Install it from", accent: "your editor." })
 }

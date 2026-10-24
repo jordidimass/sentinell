@@ -5,5 +5,5 @@ export const size = ogSize
 export const contentType = ogContentType
 
 export default function Image() {
-  return renderOg({ eyebrow: "Non-negotiables", title: "An analyst", accent: "you can audit." })
+  return renderOg({ eyebrow: "Principles", title: "Rules it follows." })
 }

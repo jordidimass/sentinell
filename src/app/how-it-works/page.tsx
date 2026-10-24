@@ -2,43 +2,44 @@ import type { Metadata } from "next"
 
 import { SectionLabel } from "@/components/site-chrome"
 
+const description = "What Sentinell does between a failed SSH login and an incident report."
+
 export const metadata: Metadata = {
   title: "How it works",
-  description: "Collect, correlate, alert, investigate, respond — Sentinell's L1 triage pipeline for a Linux host.",
-  openGraph: { title: "How it works · Sentinell", description: "Collect, correlate, alert, investigate, respond — Sentinell's L1 triage pipeline for a Linux host.", siteName: "Sentinell", type: "website" },
+  description,
+  openGraph: { title: "How it works · Sentinell", description, siteName: "Sentinell", type: "website" },
 }
 
 const flow = [
-  { n: "01", title: "Collect", body: "A Rust collector tails journald for SSH auth events. No agents, no Docker, one user in systemd-journal." },
-  { n: "02", title: "Correlate", body: "Bursts, low-and-slow guessing, success after failures — linked into one incident per source." },
-  { n: "03", title: "Alert", body: "One deduplicated Telegram alert per new or escalated incident. Works even when the AI is down." },
-  { n: "04", title: "Investigate", body: "A bounded, read-only AI investigator writes the L1 report. Every finding cites real event IDs." },
-  { n: "05", title: "Respond", body: "Temporary nftables block with expiry and rollback — only after a human approves it." },
+  { n: "01", title: "Read", body: "The collector tails journald for sshd events. It runs as an unprivileged user. No Docker." },
+  { n: "02", title: "Group", body: "Repeated failures from one IP become one incident: fast bursts, slow guessing, or a login that finally worked." },
+  { n: "03", title: "Notify", body: "One Telegram message per incident, not one per log line. Alerts still go out if the AI is offline." },
+  { n: "04", title: "Investigate", body: "A model with read-only access writes the report. Claims without a matching event ID are dropped." },
+  { n: "05", title: "Block", body: "Block the IP with nftables for a set time. Runs only after you approve it, and can be rolled back." },
 ]
 
 export default function HowItWorks() {
   return (
-    <section className="reveal">
-      <SectionLabel>How it works</SectionLabel>
-      <h1 className="max-w-3xl font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.02] tracking-tight">
-        From one bad SSH line to a <em className="text-signal">signed-off</em> response.
-      </h1>
-      <ol className="mt-14 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-5">
+    <section>
+      <div className="reveal">
+        <SectionLabel>How it works</SectionLabel>
+        <h1 className="type-title max-w-2xl">From failed login to incident report.</h1>
+      </div>
+      <ol className="mt-10 grid overflow-hidden rounded-lg border border-border bg-background sm:grid-cols-2 sm:gap-px sm:bg-border lg:grid-cols-5">
         {flow.map((s, i) => (
           <li
             key={s.n}
-            style={{ animationDelay: `${150 + i * 80}ms` }}
-            className="reveal flex flex-col gap-4 bg-background p-6"
+            style={{ animationDelay: `${100 + i * 50}ms` }}
+            className="reveal flex gap-4 border-b border-border bg-background p-5 last:border-b-0 sm:flex-col sm:border-b-0 lg:p-6"
           >
-            <span className="font-mono text-xs text-signal">{s.n}</span>
-            <h2 className="font-display text-2xl">{s.title}</h2>
-            <p className="text-xs leading-relaxed text-muted-foreground">{s.body}</p>
+            <span className="type-ui pt-1 text-signal tabular-nums">{s.n}</span>
+            <div>
+              <h2 className="type-heading">{s.title}</h2>
+              <p className="type-small mt-2">{s.body}</p>
+            </div>
           </li>
         ))}
       </ol>
-      <p className="mt-8 font-mono text-[11px] text-muted-foreground">
-        journald → collector → API + SQLite → detection → telegram · investigator → dashboard → approved response
-      </p>
     </section>
   )
 }

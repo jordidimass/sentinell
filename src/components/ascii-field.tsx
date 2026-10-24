@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 
 // Density ramp, darkest to brightest.
-const RAMP = " .·:-=+*%#@"
+const RAMP = " .·:-=+*λ#@"
 const CELL_W = 11
 const CELL_H = 18
 const RADIUS = 160

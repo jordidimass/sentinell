@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { siGithub } from "simple-icons"
 
 import { Logo } from "@/components/logo"
 import { site } from "@/lib/site"
@@ -12,8 +13,11 @@ export function SiteHeader() {
       </Link>
       <a
         href={site.repoUrl}
-        className="type-ui text-muted-foreground transition-colors duration-150 hover:text-foreground"
+        className="type-ui flex items-center gap-2 text-muted-foreground transition-colors duration-150 hover:text-foreground"
       >
+        <svg viewBox="0 0 24 24" aria-hidden className="size-4 fill-current">
+          <path d={siGithub.path} />
+        </svg>
         GitHub
       </a>
     </header>
@@ -24,9 +28,6 @@ export function SiteFooter() {
   return (
     <footer className="type-ui mx-auto flex h-14 w-full shrink-0 max-md:h-12 max-md:text-xs max-w-6xl items-center justify-between px-4 text-muted-foreground sm:px-8">
       <span>{site.version}</span>
-      <span>
-        Built at Grok Bot <span className="max-sm:hidden">Guatemala </span>Hackathon
-      </span>
     </footer>
   )
 }

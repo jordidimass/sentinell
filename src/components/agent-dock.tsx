@@ -1,14 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { BotIcon, CheckIcon, CopyIcon } from "lucide-react"
+import { CheckIcon, CopyIcon } from "lucide-react"
 import { toast } from "sonner"
 
 import { agentPrompt, agents, type Agent } from "@/lib/agents"
 import { cn } from "@/lib/utils"
 
 function AgentIcon({ agent, className }: { agent: Agent; className?: string }) {
-  if (!agent.iconPath) return <BotIcon className={className} aria-hidden />
   return (
     <svg role="img" viewBox="0 0 24 24" aria-hidden className={cn("fill-current", className)}>
       <path d={agent.iconPath} />

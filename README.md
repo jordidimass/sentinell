@@ -42,7 +42,7 @@ SSH journal ─▶ Rust collector ─▶ TS API + SQLite ─▶ detection / inci
 
 - Star or watch [Roukurai/blackHatSentinel](https://github.com/Roukurai/blackHatSentinel)
 - Report bugs and request features in its [issues](https://github.com/Roukurai/blackHatSentinel/issues)
-- Download builds from its [releases](https://github.com/Roukurai/blackHatSentinel/releases)
+- Install with `curl -fsSL https://sentinell.xyz/install.sh | bash`, or [download the source](https://github.com/Roukurai/blackHatSentinel/archive/refs/heads/main.tar.gz)
 
 ## Credits
 

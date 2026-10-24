@@ -18,11 +18,11 @@ export default function Home() {
 
       <div className="reveal mt-10 flex w-full max-w-md flex-col gap-2 max-md:mt-[4dvh] [animation-delay:180ms]">
         <a
-          href={site.releasesUrl}
+          href={site.downloadUrl}
           className="pressable type-ui flex h-11 shrink-0 items-center justify-center gap-2 rounded-md bg-signal px-5 font-medium text-background hover:bg-signal/90"
         >
           <ArrowDownToLineIcon className="size-4" />
-          Download for Linux
+          Download source
         </a>
         <CopyCommand command={site.installCmd} />
       </div>

@@ -10,6 +10,7 @@ Sentinell is a self-hosted L1 security analyst for a single Linux server. It rea
 
 **Source code:** [github.com/Roukurai/blackHatSentinel](https://github.com/Roukurai/blackHatSentinel)
 **Website:** [sentinell.xyz](https://sentinell.xyz)
+**Install:** [sentinell.xyz/install.sh](https://sentinell.xyz/install.sh) serves [`ops/install.sh`](https://github.com/Roukurai/blackHatSentinel/blob/main/ops/install.sh) from the product repo.
 
 > This repository only hosts the sentinell.xyz website. The product, its code, releases and issues live in [Roukurai/blackHatSentinel](https://github.com/Roukurai/blackHatSentinel).
 

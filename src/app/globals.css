@@ -86,6 +86,7 @@
   }
   html {
     @apply font-mono;
+    overflow-x: clip;
   }
 }
 @layer base {
@@ -198,4 +199,56 @@ body::after {
 
 @keyframes reveal-fade {
   from { opacity: 0; }
+}
+
+@keyframes tilt-in {
+  from {
+    transform: perspective(1800px) rotateX(16deg) scale(0.92) translateY(48px);
+    opacity: 0.35;
+  }
+  to {
+    transform: perspective(1800px) rotateX(0deg) scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .tilt-in {
+      transform-origin: 50% 0%;
+      animation: tilt-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+
+    .fade-up {
+      animation: fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+
+@keyframes scroll-cue {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
+.scroll-cue {
+  animation: scroll-cue 1.8s var(--ease-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue { animation: none; }
 }

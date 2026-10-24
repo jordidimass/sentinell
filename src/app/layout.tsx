@@ -49,14 +49,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`dark ${sentient.variable} ${jetbrains.variable} h-full antialiased`}>
-      <body className="relative isolate flex min-h-dvh flex-col overflow-x-clip max-md:h-dvh max-md:overflow-hidden">
+      <body className="relative isolate flex min-h-dvh flex-col overflow-x-clip">
         <AsciiField />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-48 left-1/2 -z-10 h-[420px] w-[min(900px,120vw)] -translate-x-1/2 rounded-full bg-signal/15 blur-[120px]"
-        />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[560px] overflow-hidden">
+          <div className="absolute -top-48 left-1/2 h-[420px] w-[min(900px,120vw)] -translate-x-1/2 rounded-full bg-signal/15 blur-[120px]" />
+        </div>
         <SiteHeader />
-        <main className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col justify-center px-4 py-12 max-md:py-[2dvh] sm:px-8">
+        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 sm:px-8">
           {children}
         </main>
         <SiteFooter />

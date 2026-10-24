@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans, Instrument_Serif } from "next/font/google";
 
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { Toaster } from "@/components/ui/sonner";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -26,7 +27,10 @@ const display = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: "Sentinell — the self-hosted L1 SOC analyst",
+  title: {
+    default: "Sentinell — the self-hosted L1 SOC analyst",
+    template: "%s · Sentinell",
+  },
   description:
     "Sentinell watches SSH auth on your Linux server, correlates attacks into incidents, alerts on Telegram, and writes evidence-cited AI investigations. Self-hosted, single binary.",
   openGraph: {
@@ -36,6 +40,7 @@ export const metadata: Metadata = {
     siteName: "Sentinell",
     type: "website",
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -44,8 +49,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`dark ${sans.variable} ${mono.variable} ${display.variable} h-full antialiased`}
     >
-      <body className="min-h-full">
-        {children}
+      <body className="relative isolate flex min-h-dvh flex-col overflow-x-clip">
+        <div aria-hidden className="grid-bg pointer-events-none absolute inset-x-0 top-0 -z-10 h-[900px]" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-40 right-[-10%] -z-10 size-[640px] rounded-full bg-signal/20 blur-[140px]"
+        />
+        <SiteHeader />
+        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-4 py-10 sm:px-6">
+          {children}
+        </main>
+        <SiteFooter />
         <Toaster theme="dark" position="bottom-center" />
       </body>
     </html>

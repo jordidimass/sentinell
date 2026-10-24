@@ -31,7 +31,7 @@ export function AgentButtons() {
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-2">
+    <div className="flex flex-wrap justify-center gap-2 max-sm:flex-nowrap max-sm:gap-1.5">
       {agents.map((agent) => {
         const done = copied === agent.id
         return (
@@ -40,11 +40,11 @@ export function AgentButtons() {
             type="button"
             onClick={() => copy(agent)}
             aria-label={`Copy setup prompt for ${agent.name}`}
-            className="pressable group type-ui flex h-10 items-center gap-2.5 rounded-md border border-border bg-background/70 pr-3 pl-3.5 text-foreground backdrop-blur focus-visible:outline-2 focus-visible:outline-signal [@media(hover:hover)]:hover:border-foreground/25"
+            className="pressable group type-ui flex h-10 items-center gap-2.5 rounded-md border border-border bg-background/70 pr-3 pl-3.5 max-sm:h-9 max-sm:gap-1.5 max-sm:px-2.5 max-sm:text-xs max-sm:whitespace-nowrap text-foreground backdrop-blur focus-visible:outline-2 focus-visible:outline-signal [@media(hover:hover)]:hover:border-foreground/25"
           >
             <AgentIcon agent={agent} className="size-4" />
             {agent.name}
-            <span className="ml-1 text-muted-foreground transition-colors duration-150 group-hover:text-foreground">
+            <span className="ml-1 text-muted-foreground max-sm:hidden transition-colors duration-150 group-hover:text-foreground">
               {done ? <CheckIcon className="size-3.5 text-phosphor" /> : <CopyIcon className="size-3.5" />}
             </span>
           </button>

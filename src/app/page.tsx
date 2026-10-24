@@ -10,16 +10,16 @@ export default function Home() {
       <p className="reveal type-ui text-muted-foreground">
         <span className="text-signal">●</span> self-hosted <span className="text-border">/</span> open source
       </p>
-      <h1 className="reveal type-display mt-6 [animation-delay:60ms]">Every SSH attack on your server, explained.</h1>
-      <p className="reveal type-body mt-6 max-w-[34rem] [animation-delay:120ms]">
+      <h1 className="reveal type-display mt-6 max-md:mt-[2.5dvh] max-md:text-[min(10.5vw,6.4dvh)] [animation-delay:60ms]">Every SSH attack on your server, explained.</h1>
+      <p className="reveal type-body mt-6 max-w-[34rem] max-md:mt-[2.5dvh] max-md:text-[13px] max-md:leading-[1.6] [animation-delay:120ms]">
         Sentinell reads sshd logs, groups attempts into incidents, alerts you on Telegram, and writes a report that
         cites the exact log lines.
       </p>
 
-      <div className="reveal mt-10 flex w-full max-w-md flex-col gap-2 [animation-delay:180ms]">
+      <div className="reveal mt-10 flex w-full max-w-md flex-col gap-2 max-md:mt-[4dvh] [animation-delay:180ms]">
         <a
           href={site.releasesUrl}
-          className="pressable type-ui flex h-11 items-center justify-center gap-2 rounded-md bg-signal px-5 font-medium text-background hover:bg-signal/90"
+          className="pressable type-ui flex h-11 shrink-0 items-center justify-center gap-2 rounded-md bg-signal px-5 font-medium text-background hover:bg-signal/90"
         >
           <ArrowDownToLineIcon className="size-4" />
           Download for Linux
@@ -27,8 +27,10 @@ export default function Home() {
         <CopyCommand command={site.installCmd} />
       </div>
 
-      <div className="reveal mt-12 flex flex-col items-center gap-4 [animation-delay:240ms]">
-        <p className="type-label text-muted-foreground">Or paste a setup prompt into your agent</p>
+      <div className="reveal mt-12 flex flex-col items-center gap-4 max-md:mt-[4.5dvh] max-md:gap-3 [animation-delay:240ms]">
+        <p className="type-label text-muted-foreground">
+          Or paste a setup prompt <span className="max-sm:hidden">into your agent</span>
+        </p>
         <AgentButtons />
       </div>
     </section>

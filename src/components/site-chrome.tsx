@@ -5,7 +5,7 @@ import { site } from "@/lib/site"
 
 export function SiteHeader() {
   return (
-    <header className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-8">
+    <header className="mx-auto flex h-16 w-full shrink-0 max-md:h-14 max-w-6xl items-center justify-between px-4 sm:px-8">
       <Link href="/" className="flex items-center gap-2" aria-label="Sentinell home">
         <Logo />
         <span className="font-mono text-[15px] font-medium tracking-[-0.03em]">sentinell</span>
@@ -22,9 +22,11 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="type-ui mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 text-muted-foreground sm:px-8">
+    <footer className="type-ui mx-auto flex h-14 w-full shrink-0 max-md:h-12 max-md:text-xs max-w-6xl items-center justify-between px-4 text-muted-foreground sm:px-8">
       <span>{site.version}</span>
-      <span>Built at Grok Bot Guatemala Hackathon</span>
+      <span>
+        Built at Grok Bot <span className="max-sm:hidden">Guatemala </span>Hackathon
+      </span>
     </footer>
   )
 }
